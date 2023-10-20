@@ -1,5 +1,4 @@
-#### <a name="_psu2m8wnrw18"></a>Group members: Shuxian Chen, Haiming Li, Chenyan Wen
-### <a name="_b5z6khdpzs3v"></a>**Dataset Used: 2017-March 2020 Pre-Pandemic Demographics Data**
+### <a name="_b5z6khdpzs3v"></a>**2017-March 2020 Pre-Pandemic Demographics Data**
 ### <a name="_q7t6o3jcnv4e"></a>Cholesterol - Total ([P_TCHOL](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_TCHOL.htm))
 - LBXTC - total cholesterol level in mg/dL (used as the response variable)
 ### <a name="_xvp7zz1th6q5"></a>Body Measures ([P_BMX](https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm))
@@ -22,11 +21,11 @@
   - 4: Non-Hispanic Black
   - 6: Non-Hispanic Asian
   - 7: Other Race - Including Multi-Racial
-- ### <a name="_lt5m2qrwwjar"></a>RIAGENDR - gender
+- RIAGENDR - gender
   - 1: male
   - 2: female
 
-**Basic Setup**
+### **Basic Setup**
 
 - Do binary classification
   - cholesterol level (LBXTC) > 200 mg/dL means unhealthy
@@ -34,7 +33,7 @@
   - All other variables mentioned above are predictors
 - All four datasets are joined together with Respondent Sequence Number (SEQN)
 
-**Questions Investigated**
+### **Questions Investigated**
 
 - Try to create models that predicate cholesterol risk using selected features
   - Try SVM and XGB, fine-tune with CV
@@ -42,3 +41,8 @@
 - Discover potential relationships between features and cholesterol level
   - Use SHAP value to compare feature importance between SVM and XGB
   - Relate to possible real-life causes
+
+### **Group Members**
+- Shuxian Chen
+- Haiming Li
+- Chenyan Wen
