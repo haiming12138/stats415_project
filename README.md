@@ -35,12 +35,13 @@
 
 ### **Questions Investigated**
 
-- Try to create models that predicate cholesterol risk using selected features
-  - Try SVM and XGB, fine-tune with CV
-  - Apply L1/L2 regularization for both models 
 - Discover potential relationships between features and cholesterol level
-  - Use SHAP value to compare feature importance between SVM and XGB
-  - Relate to possible real-life causes
+    - Use SHAP value to compare feature importance between SVM and XGB
+    - Relate to possible explanations in real-life
+- Divide the dataset by age into three groups
+  - Young, Middle, and old, cutoffs are 30 and 60
+  - Fit models on each and compare differences between feature importance
+  - Find possible explanations in real-life
 
 ### **Group Members**
 - Shuxian Chen
