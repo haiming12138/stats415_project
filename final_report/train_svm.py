@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import joblib
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
@@ -8,14 +9,14 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder, \
     StandardScaler, RobustScaler, PowerTransformer
 from sklearn.decomposition import PCA
 from read_data_util import NUM_COLS, CAT_COLS, get_data
-import time
+
 
 # Prepare data for full model
 X, y = get_data('./datasets/data.csv')
 
 transformer = ColumnTransformer(
     [('encode', OneHotEncoder(drop='first'), CAT_COLS),
-     ('standardize', RobustScaler(), NUM_COLS)],
+     ('standardize', PowerTransformer(), NUM_COLS)],
     remainder='passthrough',
     n_jobs=-1,
     verbose_feature_names_out=False
@@ -39,14 +40,12 @@ params= {
 grid = GridSearchCV(
     estimator=pipe, 
     param_grid=params,
-    scoring='accuracy',
+    scoring='roc_auc',
     cv=5,
     n_jobs=-1,
 )
 
-start = time.time()
 grid.fit(X, y)
-end = time.time()
-print(end - start)
+joblib.dump(grid.best_estimator_, './models/model_full.sav')
 print(grid.best_score_)
 
