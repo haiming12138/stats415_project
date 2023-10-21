@@ -32,8 +32,8 @@ pipe = Pipeline(
 )
 
 params= {
-    'clf__C': [1], 
-    'clf__gamma': [10]
+    'clf__C': np.linspace(1, 100, 50), 
+    'clf__gamma': np.linspace(4 * pow(10, -4), 7 * pow(10, -4), 50)
 }
 
 
