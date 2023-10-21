@@ -13,7 +13,7 @@ done
 
 print_result()
 {   
-    if [ $? == 0 ]
+    if [ $? = 0 ]
     then
         echo 'Execution Success'
     else
@@ -23,20 +23,20 @@ print_result()
 
 notify_result()
 {
-    if [ $? == 0 ]
+    if [ $? -ne 0 ]
     then
-        python3 send_mail.py -s success -r $recipient
-    else
         python3 send_mail.py -s fail -r $recipient
+    else
+        python3 send_mail.py -s success -r $recipient
     fi
 }
 
-if [ $mode == "setup" ]
+if [ "$mode" = "setup" ]
 then
     pip install -r requirements.txt
     Rscript --vanilla create_data.R
     print_result
-elif [ $mode == "cleanup" ]
+elif [ "$mode" = "cleanup" ]
 then
     rm -R ./.cache/*
     rm -R ./models/*
