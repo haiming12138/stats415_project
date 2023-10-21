@@ -1,51 +1,67 @@
-import numpy as np
-import pandas as pd
 import joblib
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder, \
-    StandardScaler, RobustScaler, PowerTransformer
-from sklearn.decomposition import PCA
-from read_data_util import NUM_COLS, CAT_COLS, get_data
+from sklearn.preprocessing import OneHotEncoder, PowerTransformer, \
+    RobustScaler, StandardScaler
+from read_data_util import NUM_COLS, CAT_COLS, \
+    get_full_data, get_group_data
 
 
-# Prepare data for full model
-X, y = get_data('./datasets/data.csv')
+def svm(X, y, params, name):
+    """
+    X: array-like, contains all features
+    y: contains class labels
+    params: dictionary, contains hyperparameter search grid
+    """
 
-transformer = ColumnTransformer(
-    [('encode', OneHotEncoder(drop='first'), CAT_COLS),
-     ('standardize', PowerTransformer(), NUM_COLS)],
-    remainder='passthrough',
-    n_jobs=-1,
-    verbose_feature_names_out=False
-)
+    transformer = ColumnTransformer(
+        [('encode', OneHotEncoder(drop='first'), CAT_COLS),
+        ('standardize', PowerTransformer(), NUM_COLS)],
+        remainder='drop',
+        n_jobs=-1,
+        verbose_feature_names_out=False
+    )
 
-pipe = Pipeline(
-    [('transform', transformer),
-     ('clf', SVC(kernel='rbf', 
-                 gamma='scale', 
-                 class_weight='balanced'))
-    ],
-    memory='./.cache'
-)
+    pipe = Pipeline(
+        [('transform', transformer),
+        ('clf', SVC(kernel='rbf', 
+                    class_weight='balanced'))
+        ],
+        memory='./.cache'
+    )
 
-params= {
-    'clf__C': np.linspace(1, 100, 50), 
-    'clf__gamma': np.linspace(4 * pow(10, -4), 7 * pow(10, -4), 50)
-}
+    grid = GridSearchCV(
+        estimator=pipe, 
+        param_grid=params,
+        scoring='f1',
+        cv=5,
+        n_jobs=-1,
+    )
+
+    grid.fit(X, y)
+    joblib.dump(grid.best_estimator_, f'./models/{name}.sav')
 
 
-grid = GridSearchCV(
-    estimator=pipe, 
-    param_grid=params,
-    scoring='roc_auc',
-    cv=5,
-    n_jobs=-1,
-)
+def full_svm(params: dict):
+    """
+    Train SVM with full data
+    """
+    X, y = get_full_data()
+    svm(X, y, params, 'svm_full')
 
-grid.fit(X, y)
-joblib.dump(grid.best_estimator_, './models/model_full.sav')
-print(grid.best_score_)
+
+def group_svm(params: list):
+    """
+    Train 3 seperate SVM with grouped data
+    params: list of dictionary
+    EX: params[0] is grid for young group
+        params[1] is grid for middle age group
+        params[2] is grid for elderly group
+    """
+    data = get_group_data()
+    for idx, group in enumerate(['young', 'mid', 'old']):
+        X, y = data[group]
+        svm(X, y, params[idx], f'svm_{group}')
 

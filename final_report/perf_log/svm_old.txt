@@ -1,0 +1,3 @@
+cv_f1: 0.509
+cv_balanced_accuracy: 0.588
+cv_roc_auc: 0.63

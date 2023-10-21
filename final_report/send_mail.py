@@ -1,5 +1,6 @@
 import os
 import ssl
+import sys
 import smtplib
 from email.utils import formataddr
 import argparse
@@ -7,12 +8,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 parse = argparse.ArgumentParser()
-parse.add_argument('-s', '--status', required=True, 
-                   choices=['success', 'fail'], type=str)
-parse.add_argument('-r', '--recipient', required=True, type=str)
+parse.add_argument('-s', '--status', choices=['success', 'fail'], type=str)
+parse.add_argument('-r', '--recipient', type=str, default='no_one')
 
 def main():
     args = parse.parse_args()
+
+    if args.recipient == 'no_one':
+        print('No notification send')
+        sys.exit(0)
 
     sender = 'notification@opc.com'
     sender_name = 'notification@opc.com'

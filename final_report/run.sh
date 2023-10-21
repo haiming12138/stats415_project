@@ -9,6 +9,8 @@ do
   esac
 done
 
+[ -z "$recipient" ] && recipient="no_one"
+
 print_result()
 {   
     if [ $? == 0 ]
@@ -34,10 +36,13 @@ then
     pip install -r requirements.txt
     Rscript --vanilla create_data.R
     print_result
-elif [ $mode == "svm_full" ] 
+elif [ $mode == "cleanup" ]
 then
-	echo "full svm"
-    notify_result
+    rm -R ./.cache/*
+    rm -R ./models/*
+    rm -R ./figures/*
+    rm -R ./perf_log/* 
 else
-	echo "Invalid Mode"
+	python3 main.py -m $mode
+    notify_result
 fi
