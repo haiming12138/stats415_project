@@ -38,6 +38,7 @@ def svm(X, y, params, name):
         scoring='f1',
         cv=5,
         n_jobs=-1,
+        verbose=3
     )
 
     grid.fit(X, y)
