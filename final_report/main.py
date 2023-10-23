@@ -40,7 +40,18 @@ def main():
         }
         full_xgb(params)
     else:
-        params = {}
+        param = {
+            'clf__n_estimators': np.arange(5, 35, 5),
+            'clf__max_depth': [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            'clf__min_child_weight': np.arange(0.0001, 0.5, 0.001),
+            'clf__gamma': np.arange(0.0,40.0,0.005),
+            'clf__learning_rate': np.arange(0.0005,0.3,0.0005),
+            'clf__subsample': np.arange(0.3,0.8,0.05),
+            'clf__reg_alpha': np.linspace(0, 100, 50),
+            'clf__reg_lambda': np.linspace(0, 100, 50),
+            'clf__scale_pos_weight': [3, 4, 5, 6]
+        }
+        params = [param, param, param]
         group_xgb(params)
     
     run_all_visual(args.mode)
