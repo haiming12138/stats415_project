@@ -23,11 +23,11 @@ print_result()
 
 notify_result()
 {
-    if [ $? -ne 0 ]
+    if [ $? = 0 ]
     then
-        python3 send_mail.py -s fail -r $recipient
-    else
         python3 send_mail.py -s success -r $recipient
+    else
+        python3 send_mail.py -s fail -r $recipient
     fi
 }
 
@@ -39,9 +39,6 @@ then
 elif [ "$mode" = "cleanup" ]
 then
     rm -R ./.cache/*
-    rm -R ./models/*
-    rm -R ./figures/*
-    rm -R ./perf_log/* 
 else
 	python3 main.py -m $mode
     notify_result

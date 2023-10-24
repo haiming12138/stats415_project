@@ -7,8 +7,6 @@ from sklearn.preprocessing import OneHotEncoder, PowerTransformer, \
     RobustScaler, StandardScaler
 from read_data_util import NUM_COLS, CAT_COLS, \
     get_full_data, get_group_data
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 def xgb(X, y, params, name):
@@ -42,7 +40,7 @@ def xgb(X, y, params, name):
         scoring='roc_auc',
         cv=5,
         n_jobs=-1,
-        verbose=3,
+        verbose=1,
         n_iter=1000000
     )
 
