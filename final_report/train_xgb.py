@@ -28,8 +28,7 @@ def xgb(X, y, params, name):
     pipe = Pipeline(
         [
             ('transform', transformer),
-            ('clf', XGBClassifier()
-            )
+            ('clf', XGBClassifier(n_jobs=-1))
         ],
         memory='./.cache'
     )
