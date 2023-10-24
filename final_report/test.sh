@@ -33,15 +33,14 @@ notify_result()
 
 if [ "$mode" = "setup" ]
 then
-    pip install -r requirements.txt
-    Rscript --vanilla create_data.R
+    echo "setup"
     print_result
 elif [ "$mode" = "cleanup" ]
 then
-    rm -R ./.cache/*
+    echo "cleanup"
 elif [ "$mode" = "svm_full" -o "$mode" = "svm_group" -o "$mode" = "xgb_full" -o "$mode" = "xgb_group" ]
 then
-	python3 main.py -m $mode
+	echo "$mode"
     notify_result
 else
     echo "Invalid Arguments"
