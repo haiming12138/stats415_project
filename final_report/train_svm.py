@@ -26,7 +26,8 @@ def svm(X, y, params, name):
 
     pipe = Pipeline(
         [('transform', transformer),
-        ('clf', SVC(kernel='rbf', 
+        ('clf', SVC(kernel='rbf',
+                    probability=True, 
                     class_weight='balanced'))
         ],
         memory='./.cache'

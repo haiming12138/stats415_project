@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import shap
 import joblib
 import matplotlib.pyplot as plt
 from sklearn.metrics import auc, RocCurveDisplay
@@ -86,9 +87,33 @@ def save_cv_metric(classifier, X, y, fname):
         file.write(output)
 
 
+def plot_shap_values(classifier, X, y, fname):
+    # Create & calculate shap values
+    explainer = shap.Explainer(classifier.predict_proba, X)
+    shap_values = explainer(X)
+    shap_values = shap_values[..., 1]
+
+    # Bee swarm plot
+    shap.summary_plot(shap_values, X, show=False)
+    plt.savefig(f'./figures/{fname}_beeswarm.png', dpi=800, bbox_inches='tight')
+    plt.close()
+
+    # Bar plot
+    shap.plots.bar(shap_values, max_display=12, show=False)
+    plt.savefig(f'./figures/{fname}_bar.png', dpi=800, bbox_inches='tight')
+    plt.close()
+
+    # Heat map
+    shap.plots.heatmap(shap_values, max_display=12, show=False)
+    plt.savefig(f'./figures/{fname}_heatmap.png', dpi=800, bbox_inches='tight')
+    plt.close()
+
+
+
 def run_all(classifier, X, y, fname):
     plot_cv_auc(classifier, X, y, fname)
     save_cv_metric(classifier, X, y, fname)
+    plot_shap_values(classifier, X, y, fname)
 
 
 def run_all_visual(mode: str):

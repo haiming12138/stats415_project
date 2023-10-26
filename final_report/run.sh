@@ -39,7 +39,7 @@ then
 elif [ "$mode" = "cleanup" ]
 then
     rm -R ./.cache/*
-elif [ "$mode" = "svm_full" -o "$mode" = "svm_group" -o "$mode" = "xgb_full" -o "$mode" = "xgb_group" ]
+elif [ "$mode" = "svm_full" -o "$mode" = "svm_group" -o "$mode" = "xgb_full" -o "$mode" = "xgb_group" -o "$mode" = "visualize" ]
 then
 	python3 main.py -m $mode
     notify_result
