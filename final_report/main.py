@@ -58,7 +58,7 @@ def main():
         group_xgb(params)
         run_all_visual(args.mode)
     else:
-        for mode in ['xgb_full', 'xgb_group']:
+        for mode in ['svm_group']:
             run_all_visual(mode)
 
     
