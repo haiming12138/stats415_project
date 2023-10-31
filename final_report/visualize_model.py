@@ -112,7 +112,6 @@ def plot_shap_values(classifier, X, y, fname):
 
 def run_all(classifier, X, y, fname):
     plot_cv_auc(classifier, X, y, fname)
-    save_cv_metric(classifier, X, y, fname)
     plot_shap_values(classifier, X, y, fname)
 
 

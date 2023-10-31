@@ -7,6 +7,7 @@ from sklearn.preprocessing import OneHotEncoder, PowerTransformer, \
     RobustScaler, StandardScaler
 from read_data_util import NUM_COLS, CAT_COLS, \
     get_full_data, get_group_data
+from visualize_model import save_cv_metric
 
 
 def xgb(X, y, params, name):
@@ -45,6 +46,7 @@ def xgb(X, y, params, name):
 
     grid.fit(X, y)
     joblib.dump(grid.best_estimator_, f'./models/{name}.sav')
+    save_cv_metric(grid.best_estimator_, X, y, name)
 
 
 def full_xgb(params):

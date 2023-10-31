@@ -20,14 +20,12 @@ def main():
         'clf__gamma': np.linspace(7 * pow(10, -4), 1 * pow(10, -3), 100)
         }
         full_svm(params)
-        run_all_visual(args.mode)
     elif args.mode == 'svm_group':
         param = {
         'clf__C': np.linspace(100, 200, 100), 
         'clf__gamma': np.linspace(7 * pow(10, -4), 1 * pow(10, -3), 100)
         }
         group_svm([param, param, param])
-        run_all_visual(args.mode)
     elif args.mode == 'xgb_full':
         params = {
             'clf__n_estimators': np.arange(5, 35, 5),
@@ -41,7 +39,6 @@ def main():
             'clf__scale_pos_weight': [3, 4, 5, 6]
         }
         full_xgb(params)
-        run_all_visual(args.mode)
     elif args.mode == 'xgb_group':
         param = {
             'clf__n_estimators': np.arange(5, 35, 5),
@@ -56,9 +53,8 @@ def main():
         }
         params = [param, param, param]
         group_xgb(params)
-        run_all_visual(args.mode)
     else:
-        for mode in ['svm_group']:
+        for mode in ['xgb_full', 'xgb_group', 'svm_full', 'svm_group']:
             run_all_visual(mode)
 
     
