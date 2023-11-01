@@ -38,9 +38,9 @@ param = {
     'clf__subsample': np.arange(0.5,0.9,0.05),
     'clf__reg_alpha': np.linspace(0, 100, 50),
     'clf__reg_lambda': np.linspace(0, 100, 50),
-    'clf__colsample_bylevel': np.linspace(0.1, 1, 9),
-    'clf__colsample_bynode': np.linspace(0.1, 1, 9),
-    'clf__colsample_bytree': np.linspace(0.1, 1, 9),
+    'clf__colsample_bylevel': np.linspace(0.1, 0.8, 9),
+    'clf__colsample_bynode': np.linspace(0.1, 0.8, 9),
+    'clf__colsample_bytree': np.linspace(0.1, 0.8, 9),
 }
 
 grid = RandomizedSearchCV(
