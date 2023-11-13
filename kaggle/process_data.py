@@ -22,13 +22,36 @@ def missingdata(data):
     return ms
 
 
+def feature_egin(data: pd.DataFrame):
+    srp_cols = np.array([f'SRP_{day}' for day in range(1, 51)])
+    for i in range(0, 41, 10):
+        sub_df = data[srp_cols[range(i, i+10)]]
+        data[f'avg{i}'] = np.average(sub_df, axis=1)
+        data[f'std{i}'] = np.std(sub_df, axis=1)
+        data[f'min{i}'] = np.min(sub_df, axis=1)
+        data[f'max{i}'] = np.max(sub_df, axis=1)
+        data[f'iqr{i}'] = np.percentile(sub_df, 75, axis=1) - np.percentile(sub_df, 25, axis=1)
+    
+    sub_df = data[srp_cols]
+    data['total_avg'] = np.average(sub_df, axis=1)
+    data['total_std'] = np.std(sub_df, axis=1)
+    data['total_iqr'] = np.percentile(sub_df, 75, axis=1) - np.percentile(sub_df, 25, axis=1)
+    data['total_min'] = np.min(sub_df, axis=1)
+    data['total_max'] = np.max(sub_df, axis=1)
+
+    print(data.columns)
+
+    return None
+
+
 def get_train():
     X_train.drop('SEQN', axis=1, inplace=True)
+    feature_egin(X_train)
     y_train.drop('SEQN', axis=1, inplace=True)
     return X_train, y_train
 
 
 def get_test():
     X_test = test.drop('SEQN', axis=1)
+    feature_egin(X_test)
     return X_test, test['SEQN']
-

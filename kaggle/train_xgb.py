@@ -35,8 +35,8 @@ param = {
     'reg__min_child_weight': np.arange(0.01, 0.5, 0.001),
     'reg__gamma': np.arange(0.3,20.0,0.005),
     'reg__learning_rate': np.arange(0.05,0.5,0.001),
-    'reg__subsample': np.arange(0.7,0.9,0.02),
-    'reg__colsample_bylevel': np.arange(0.7,0.9,0.02),
+    'reg__subsample': np.arange(0.7,0.9,0.01),
+    'reg__colsample_bylevel': np.arange(0.7,0.9,0.01),
     'reg__reg_alpha': np.geomspace(0.00001, 40, 100)
 }
 
@@ -47,7 +47,7 @@ grid = RandomizedSearchCV(
     cv=7,
     n_jobs=-1,
     verbose=3,
-    n_iter=100000
+    n_iter=10000
 )
 
 

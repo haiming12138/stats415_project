@@ -4,6 +4,6 @@ import joblib
 # params = model.get_params()
 # print(params['steps'][1][1].get_params()['regressor'])
 
-model = joblib.load('./models/xgb.sav')
+model = joblib.load('./models/xgb_curr_best.sav')
 params = model.get_params()
 print(params['steps'][1][1].get_params())
