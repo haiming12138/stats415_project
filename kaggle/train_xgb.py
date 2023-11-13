@@ -30,13 +30,14 @@ pipe = Pipeline(
 )
 
 param = {
-    'reg__n_estimators': np.arange(100, 200, 1),
-    'reg__max_depth': np.arange(5, 15),
-    'reg__min_child_weight': np.arange(0.0001, 0.5, 0.001),
-    'reg__gamma': np.arange(0.0,20.0,0.005),
-    'reg__learning_rate': np.arange(0.05,0.3,0.001),
-    'reg__subsample': np.arange(0.5,0.9,0.05),
-    'reg__reg_alpha': np.geomspace(0.00001, 100, 100)
+    'reg__n_estimators': np.arange(230, 400, 1),
+    'reg__max_depth': np.arange(3, 15),
+    'reg__min_child_weight': np.arange(0.01, 0.5, 0.001),
+    'reg__gamma': np.arange(0.3,20.0,0.005),
+    'reg__learning_rate': np.arange(0.05,0.5,0.001),
+    'reg__subsample': np.arange(0.7,0.9,0.02),
+    'reg__colsample_bylevel': np.arange(0.7,0.9,0.02),
+    'reg__reg_alpha': np.geomspace(0.00001, 40, 100)
 }
 
 grid = RandomizedSearchCV(
