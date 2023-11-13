@@ -1,9 +1,10 @@
 import joblib
 import numpy as np
-from xgboost import XGBRegressor
+from xgboost import XGBRegressor, train, DMatrix
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
 from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
+from sklearn.metrics import mean_squared_error
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, RobustScaler
 from process_data import get_train, NUM_COLS, CAT_COLS
@@ -25,7 +26,12 @@ transformer = ColumnTransformer(
 pipe = Pipeline(
     [
         ('transform', transformer),
-        ('reg', XGBRegressor(booster='gbtree', n_jobs=-1))
+        ('reg', XGBRegressor(objective='reg:squarederror',
+                             booster='gbtree', 
+                             n_jobs=-1,
+                             tree_method='approx'
+                )
+        )
     ]
 )
 
@@ -37,7 +43,8 @@ param = {
     'reg__learning_rate': np.arange(0.05,0.5,0.001),
     'reg__subsample': np.arange(0.7,0.9,0.01),
     'reg__colsample_bylevel': np.arange(0.7,0.9,0.01),
-    'reg__reg_alpha': np.geomspace(0.00001, 40, 100)
+    'reg__reg_alpha': np.geomspace(0.00001, 40, 100),
+    'reg__reg_lambda': np.geomspace(0.00001, 40, 100)
 }
 
 grid = RandomizedSearchCV(
@@ -47,7 +54,7 @@ grid = RandomizedSearchCV(
     cv=7,
     n_jobs=-1,
     verbose=3,
-    n_iter=10000
+    n_iter=200
 )
 
 
