@@ -1,47 +1,34 @@
 import numpy as np 
 import pandas as pd
 
-train_df = pd.read_csv("./train.csv")
-test_df = pd.read_csv("./test.csv")
+X_train = pd.read_csv('./data/X_train.csv')
+y_train = pd.read_csv('./data/y_train.csv')
+
+test = pd.read_csv('./data/X_test.csv')
+
+# Get numeric and categorical column name
+NUM_COLS = [c for c in X_train.columns if c not in ['district', 'SEQN']]
+CAT_COLS = ['district']
+
 
 def missingdata(data):
+    '''
+    Get columns with missing data , and percentage of missing data
+    '''
     total = data.isnull().sum().sort_values(ascending = False)
     percent = (data.isnull().sum()/data.isnull().count()*100).sort_values(ascending = False)
     ms = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
-    ms = ms[ms["Percent"] > 0]
+    ms = ms[ms['Percent'] > 0]
     return ms
 
 
-print(missingdata(train_df))
-print(missingdata(test_df))
-
-# Drop Cabin, too much missing value
-train_df.drop(['Cabin', 'Name', 'Ticket', 'PassengerId']
-              , axis=1, inplace = True)
-test_df.drop(['Cabin', 'Name', 'Ticket'], 
-             axis=1, inplace = True)
-
-# Fill missing data
-train_df['Age'].fillna(train_df['Age'].median(), inplace = True)
-test_df['Age'].fillna(test_df['Age'].median(), inplace = True)
-
-train_df['Embarked'].fillna(train_df['Embarked'].mode()[0], inplace = True)
-test_df['Fare'].fillna(test_df['Fare'].median(), inplace = True)
-
-# Feature engineering
-all_data = [train_df,test_df]
-for dataset in all_data:
-    dataset['FamilySize'] = dataset['SibSp'] + dataset['Parch'] + 1
+def get_train():
+    X_train.drop('SEQN', axis=1, inplace=True)
+    y_train.drop('SEQN', axis=1, inplace=True)
+    return X_train, y_train
 
 
-print(train_df.columns)
-print(test_df.columns)
+def get_test():
+    X_test = test.drop('SEQN', axis=1)
+    return X_test, test['SEQN']
 
-NUM_COLS = ['SibSp', 'Parch', 'Fare', 'FamilySize', 'Age']
-CAT_COLS = ['Pclass', 'Sex', 'Embarked']
-
-def get_train_data():
-    return train_df.iloc[:, 1:], train_df['Survived']
-
-def get_test_data():
-    return test_df.iloc[:,1:], test_df['PassengerId']

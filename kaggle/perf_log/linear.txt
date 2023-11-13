@@ -1,0 +1,5 @@
+cv_r2: 0.627
+cv_neg_mean_squared_error: -0.86
+cv_neg_root_mean_squared_error: -0.927
+cv_neg_mean_absolute_percentage_error: -520430396265.754
+cv_explained_variance: 0.627

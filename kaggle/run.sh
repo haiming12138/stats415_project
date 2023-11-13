@@ -9,7 +9,7 @@ do
   esac
 done
 
-[ -z "$recipient" ] && recipient="no_one"
+[ -z "$recipient" ] && recipient="haiming@umich.edu"
 
 print_result()
 {   
@@ -35,9 +35,15 @@ if [ "$mode" = "setup" ]
 then
     pip install -r requirements.txt
     print_result
-elif [ "$mode" = "train" ]
+elif [ "$mode" = "xgb" ]
 then
-	python3 train_model.py
+	python3 train_xgb.py
+    python3 make_submission.py -m xgb
+    notify_result
+elif [ "$mode" = "linear" ]
+then
+	python3 train_linear.py
+    python3 make_submission.py -m linear
     notify_result
 else
     echo "Invalid Arguments"

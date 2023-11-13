@@ -1,16 +1,18 @@
-import numpy as np
-import pandas as pd
 import joblib
-import matplotlib.pyplot as plt
-from sklearn.metrics import auc, RocCurveDisplay
-from sklearn.model_selection import cross_validate, StratifiedKFold
-from process_data import get_test_data
+import argparse
+import pandas as pd
+from process_data import get_test
 
-model = joblib.load('./model.sav')
 
-X, ids = get_test_data()
-pred = pd.Series(model.predict(X))
-res = pd.concat([ids, pred], keys=['PassengerId', 'Survived'], axis=1)
-res.to_csv('./res.csv', index=False)
-print(res)
+parse = argparse.ArgumentParser()
+parse.add_argument('-m', '--mode', choices=['linear', 'xgb'], type=str)
 
+
+def make_sub(mode):
+    model = joblib.load(f'./models/{mode}.sav')
+    X, ids = get_test()
+    pred = pd.Series(model.predict(X))
+    res = pd.concat([ids, pred], keys=['SEQN', 'y'], axis=1)
+    res.to_csv('./res.csv', index=False)
+
+make_sub(parse.parse_args().mode)
