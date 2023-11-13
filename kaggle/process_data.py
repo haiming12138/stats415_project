@@ -39,10 +39,6 @@ def feature_egin(data: pd.DataFrame):
     data['total_min'] = np.min(sub_df, axis=1)
     data['total_max'] = np.max(sub_df, axis=1)
 
-    print(data.columns)
-
-    return None
-
 
 def get_train():
     X_train.drop('SEQN', axis=1, inplace=True)
