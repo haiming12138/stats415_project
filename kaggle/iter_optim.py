@@ -5,7 +5,7 @@ from sklearn.model_selection import GridSearchCV
 from process_data import get_train
 from train_model_utils import save_cv_metric
 
-model = joblib.load('./models/xgb.sav')
+model = joblib.load('./models/xgb_curr_best.sav')
 X, y = get_train()
 metrics = ['r2', 'neg_mean_squared_error', 'explained_variance']
 
@@ -18,7 +18,7 @@ params = {
     'reg__subsample': np.arange(0.8,0.95,0.0025),
     'reg__colsample_bylevel': np.arange(0.8,0.95,0.0025),
     'reg__reg_alpha': np.geomspace(0.0001, 5, 1000),
-    'reg__reg_lambda': np.geomspace(0.0001, 5, 1000)
+    'reg__reg_lambda': np.geomspace(0.00001, 5, 1000)
 }
 
 curr_best = cross_validate(model, X, y, 
@@ -42,7 +42,7 @@ for i in range(5):
             scoring='neg_mean_squared_error',
             cv=7,
             n_jobs=-1,
-            verbose=2
+            verbose=0
         )
 
         grid.fit(X, y)
