@@ -1,5 +1,5 @@
-cv_r2: 0.886672
-cv_neg_mean_squared_error: -0.261322
-cv_neg_root_mean_squared_error: -0.511089
-cv_neg_mean_absolute_percentage_error: -448592305194.1769
-cv_explained_variance: 0.886881
+cv_r2: 0.888091
+cv_neg_mean_squared_error: -0.258057
+cv_neg_root_mean_squared_error: -0.507893
+cv_neg_mean_absolute_percentage_error: -392429739967.6709
+cv_explained_variance: 0.888285

@@ -7,7 +7,7 @@ y_train = pd.read_csv('./data/y_train.csv')
 test = pd.read_csv('./data/X_test.csv')
 
 # Get numeric and categorical column name
-NUM_COLS = [c for c in X_train.columns if c not in ['district', 'SEQN']]
+NUM_COLS = [c for c in X_train.columns if c not in ['district', 'SEQN', 'self_eval', 'teacher_eval']]
 CAT_COLS = ['district']
 
 
