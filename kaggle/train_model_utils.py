@@ -10,7 +10,7 @@ def save_cv_metric(classifier, X, y, name):
 
     output = ''
     for metric in metrics:
-        perf = np.round(res[f'test_{metric}'].mean(), 3)
+        perf = np.round(res[f'test_{metric}'].mean(), 6)
         output += f'cv_{metric}: {perf}\n'
     with open(f'./perf_log/{name}.txt', '+w') as file:
         file.write(output)
