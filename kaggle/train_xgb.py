@@ -1,10 +1,9 @@
 import joblib
 import numpy as np
-from xgboost import XGBRegressor, train, DMatrix
+from xgboost import XGBRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
-from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
-from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import RandomizedSearchCV
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, RobustScaler
 from process_data import get_train, NUM_COLS, CAT_COLS
@@ -38,9 +37,9 @@ pipe = Pipeline(
 param = {
     'reg__n_estimators': np.arange(230, 400, 1),
     'reg__max_depth': np.arange(3, 15),
-    'reg__min_child_weight': np.arange(0.01, 0.5, 0.001),
-    'reg__gamma': np.arange(0.3,20.0,0.005),
-    'reg__learning_rate': np.arange(0.05,0.5,0.001),
+    'reg__min_child_weight': np.geomspace(0.01, 0.5, 1000),
+    'reg__gamma': np.geomspace(0.3,20.0,1000),
+    'reg__learning_rate': np.geomspace(0.05,0.5,1000),
     'reg__subsample': np.arange(0.7,0.9,0.01),
     'reg__colsample_bylevel': np.arange(0.7,0.9,0.01),
     'reg__reg_alpha': np.geomspace(0.00001, 40, 100),

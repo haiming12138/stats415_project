@@ -5,7 +5,7 @@ from process_data import get_test
 
 
 parse = argparse.ArgumentParser()
-parse.add_argument('-m', '--mode', choices=['linear', 'xgb'], type=str)
+parse.add_argument('-m', '--mode', type=str)
 
 
 def make_sub(mode):

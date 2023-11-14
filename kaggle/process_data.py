@@ -24,8 +24,8 @@ def missingdata(data):
 
 def feature_egin(data: pd.DataFrame):
     srp_cols = np.array([f'SRP_{day}' for day in range(1, 51)])
-    for i in range(0, 41, 10):
-        sub_df = data[srp_cols[range(i, i+10)]]
+    for i in range(1, 49, 7):
+        sub_df = data[srp_cols[range(i, i+7)]]
         data[f'avg{i}'] = np.average(sub_df, axis=1)
         data[f'std{i}'] = np.std(sub_df, axis=1)
         data[f'min{i}'] = np.min(sub_df, axis=1)
