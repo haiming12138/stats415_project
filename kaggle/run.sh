@@ -47,7 +47,7 @@ then
     notify_result
 elif [ "$mode" = "optim" ]
 then
-	python3 iterm_optim.py
+	python3 iter_optim.py
     notify_result
 else
     echo "Invalid Arguments"
