@@ -61,6 +61,7 @@ for i in range(5):
             best_res = curr_res
             model = grid.best_estimator_
             early_stop_counter = 0
+            joblib.dump(model, './models/xgb_optim.sav')
             print('Success')
         else:
             early_stop_counter += 1
@@ -69,5 +70,4 @@ for i in range(5):
         if early_stop_counter > 9:
             break
 
-joblib.dump(model, './models/xgb_optim.sav')
 save_cv_metric(model, X, y, 'xgb_optim')

@@ -45,6 +45,10 @@ then
 	python3 train_linear.py
     python3 make_submission.py -m linear
     notify_result
+elif [ "$mode" = "optim" ]
+then
+	python3 iterm_optim.py
+    notify_result
 else
     echo "Invalid Arguments"
 fi
