@@ -39,6 +39,8 @@ def feature_egin(data: pd.DataFrame):
     data['total_min'] = np.min(sub_df, axis=1)
     data['total_max'] = np.max(sub_df, axis=1)
 
+    data['district'] = data['district'].apply(lambda x: 'even' if x % 2 == 0 else 'odd')
+
 
 def get_train():
     X_train.drop('SEQN', axis=1, inplace=True)
