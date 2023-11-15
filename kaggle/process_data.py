@@ -39,7 +39,7 @@ def feature_egin(data: pd.DataFrame):
     data['total_min'] = np.min(sub_df, axis=1)
     data['total_max'] = np.max(sub_df, axis=1)
 
-    data['district'] = data['district'].apply(lambda x: 'even' if x % 2 == 0 else 'odd')
+    data['district'] = data['district'].apply(lambda x: 1 if x % 2 == 0 else 0)
 
 
 def get_train():

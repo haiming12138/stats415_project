@@ -13,7 +13,7 @@ X, y = get_train()
 
 transformer = ColumnTransformer(
     [
-        ('encode', OneHotEncoder(drop='first'), CAT_COLS),
+       # ('encode', OneHotEncoder(drop='first'), CAT_COLS),
         ('transform', RobustScaler(), NUM_COLS),
         ('pca', PCA(n_components='mle'), NUM_COLS)
     ],
