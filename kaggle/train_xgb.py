@@ -13,9 +13,9 @@ X, y = get_train()
 
 transformer = ColumnTransformer(
     [
-       # ('encode', OneHotEncoder(drop='first'), CAT_COLS),
-        ('transform', RobustScaler(), NUM_COLS),
-        ('pca', PCA(n_components='mle'), NUM_COLS)
+       ('encode', OneHotEncoder(drop='first'), CAT_COLS),
+       ('transform', RobustScaler(), NUM_COLS),
+       ('pca', PCA(n_components='mle'), NUM_COLS)
     ],
     remainder='passthrough',
     n_jobs=-1,
@@ -35,7 +35,7 @@ pipe = Pipeline(
 )
 
 param = {
-    'reg__n_estimators': np.arange(230, 400, 1),
+    'reg__n_estimators': np.arange(300, 400, 1),
     'reg__max_depth': np.arange(3, 15),
     'reg__min_child_weight': np.geomspace(0.01, 0.5, 1000),
     'reg__gamma': np.geomspace(0.3,20.0,1000),
@@ -50,10 +50,10 @@ grid = RandomizedSearchCV(
     estimator=pipe,
     param_distributions=param,
     scoring='neg_mean_squared_error',
-    cv=7,
+    cv=10,
     n_jobs=-1,
-    verbose=3,
-    n_iter=200
+    verbose=2,
+    n_iter=300
 )
 
 

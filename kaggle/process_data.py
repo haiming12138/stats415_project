@@ -31,6 +31,7 @@ def feature_egin(data: pd.DataFrame):
         data[f'min{i}'] = np.min(sub_df, axis=1)
         data[f'max{i}'] = np.max(sub_df, axis=1)
         data[f'iqr{i}'] = np.percentile(sub_df, 75, axis=1) - np.percentile(sub_df, 25, axis=1)
+        data[f'trend{i}'] = sub_df.apply(lambda row: np.polyfit(range(len(row)), row, 1)[0], axis=1)
     
     sub_df = data[srp_cols]
     data['total_avg'] = np.average(sub_df, axis=1)
