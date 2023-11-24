@@ -22,11 +22,11 @@ def main():
     sender_name = 'notification@opc.com'
     recepient = args.recipient
 
-    usr_name = 'ocid1.user.oc1..aaaaaaaaeu3y7cseopcxyxbjhebfepxsbcma26kb6sxtf22c234g55xptd3q@ocid1.tenancy.oc1..aaaaaaaaa4w3s5mjmt6lakqybzxdxa5nlzgmo3agigfda3vs3eabajeddeka.ss.com'
-    password = '!Z+2ZEc6$!Gg1gw7A]A;'
+    usr_name = ''
+    password = ''
 
-    host = 'smtp.email.us-ashburn-1.oci.oraclecloud.com'
-    port = 587
+    host = ''
+    port = None
 
     subject = 'execution ' + args.status
     body = ('')

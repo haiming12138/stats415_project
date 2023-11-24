@@ -24,7 +24,7 @@ transformer = ColumnTransformer(
 
 pipe = Pipeline(
     [
-        ('transform', transformer),
+        ('transform', PCA(n_components='mle')),
         ('reg', XGBRegressor(objective='reg:squarederror',
                              booster='gbtree', 
                              n_jobs=-1,
@@ -52,7 +52,7 @@ grid = RandomizedSearchCV(
     scoring='neg_mean_squared_error',
     cv=10,
     n_jobs=-1,
-    verbose=2,
+    verbose=3,
     n_iter=300
 )
 

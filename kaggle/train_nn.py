@@ -6,7 +6,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import RobustScaler
 from skorch import NeuralNetRegressor
 from process_data import get_train, get_test
-from train_model_utils import save_cv_metric
 from nn_definition import MyModule
 
 X, y = get_train()
@@ -25,7 +24,8 @@ net = NeuralNetRegressor(
     optimizer__betas=(0.9, 0.999),
     optimizer__eps=1e-8,
     iterator_train__shuffle=True,
-    batch_size=200
+    batch_size=200,
+    # train_split=False
 )
 
 pipe = Pipeline([('scaler', RobustScaler()), ('reg', net)])

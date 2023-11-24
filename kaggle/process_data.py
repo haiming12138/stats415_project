@@ -1,14 +1,32 @@
 import numpy as np 
 import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder, RobustScaler
 
 X_train = pd.read_csv('./data/X_train.csv')
 y_train = pd.read_csv('./data/y_train.csv')
+X_train.drop('SEQN', axis=1, inplace=True)
+y_train.drop('SEQN', axis=1, inplace=True)
 
 test = pd.read_csv('./data/X_test.csv')
+X_test = test.drop('SEQN', axis=1)
 
 # Get numeric and categorical column name
 NUM_COLS = [c for c in X_train.columns if c not in ['district', 'SEQN', 'self_eval', 'teacher_eval']]
-CAT_COLS = ['district']
+CAT_COLS = ['self_eval', 'teacher_eval']
+
+transformer = ColumnTransformer(
+    [  
+       ('scale', RobustScaler(), NUM_COLS),
+       ('encode', OneHotEncoder(drop='first'), CAT_COLS)
+    ],
+    remainder='passthrough',
+    n_jobs=-1,
+    verbose_feature_names_out=False
+)
+transformer.fit(X_train)
+X_train = pd.DataFrame(transformer.transform(X_train), columns=transformer.get_feature_names_out())
+X_test = pd.DataFrame(transformer.transform(test), columns=transformer.get_feature_names_out())
 
 
 def missingdata(data):
@@ -44,13 +62,10 @@ def feature_egin(data: pd.DataFrame):
 
 
 def get_train():
-    X_train.drop('SEQN', axis=1, inplace=True)
     feature_egin(X_train)
-    y_train.drop('SEQN', axis=1, inplace=True)
     return X_train, y_train
 
 
 def get_test():
-    X_test = test.drop('SEQN', axis=1)
     feature_egin(X_test)
     return X_test, test['SEQN']
