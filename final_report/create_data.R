@@ -64,7 +64,7 @@ write.csv(data, './datasets/data.csv', row.names = FALSE)
 # create and save partitioned data
 data_young <- filter(data, RIDAGEYR < 30)
 data_mid <- filter(data, RIDAGEYR >= 30 & RIDAGEYR < 60)
-data_old <- filter(data, RIDAGEYR >= 30)
+data_old <- filter(data, RIDAGEYR >= 60)
 write.csv(data_young, './datasets/data_young.csv', row.names = FALSE)
 write.csv(data_mid, './datasets/data_mid.csv', row.names = FALSE)
 write.csv(data_old, './datasets/data_old.csv', row.names = FALSE)
