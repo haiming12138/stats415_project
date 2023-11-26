@@ -1,6 +1,6 @@
 ---
 title: "Open-ended Exploration Report"
-author: "Shuxian Chen, Haiming Li, Witty Wen"
+author: "Haiming Li, Shuxian Chen, Witty Wen"
 date: "2023-11-06"
 output:
   pdf_document: default
