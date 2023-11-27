@@ -6,6 +6,9 @@
 ### [**Kaggle Competition**](./kaggle/)
 - This folder contains all code for kaggle competition
 
+### [**Report**](./report/)
+- This folder contains Final report and Kaggle report.
+
 ### **Group Members**
 - Shuxian Chen
 - Haiming Li
