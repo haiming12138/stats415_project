@@ -6,7 +6,7 @@
 ### [**Kaggle Competition**](./kaggle/)
 - This folder contains all code for kaggle competition
 
-### [**Report**](./report/)
+### [**Report**](./reports/)
 - This folder contains Final report and Kaggle report.
 
 ### **Group Members**
