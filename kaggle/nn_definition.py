@@ -5,7 +5,7 @@ class MyModule(nn.Module):
     def __init__(self, nonlin=nn.ELU(0.6)):
         super().__init__()
 
-        self.dense0 = nn.Linear(106, 256)
+        self.dense0 = nn.Linear(100, 256)
         self.nonlin = nonlin
         self.dropout = nn.Dropout(0.3)
         self.dense1 = nn.Linear(256, 512)

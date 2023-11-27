@@ -13,7 +13,7 @@ X_test = test.drop('SEQN', axis=1)
 
 # Get numeric and categorical column name
 NUM_COLS = [c for c in X_train.columns if c not in ['district', 'SEQN', 'self_eval', 'teacher_eval']]
-CAT_COLS = ['self_eval', 'teacher_eval']
+CAT_COLS = []
 
 transformer = ColumnTransformer(
     [  
