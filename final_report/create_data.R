@@ -3,9 +3,12 @@ if (!require(haven))
   install.packages("haven", repos = "http://cran.us.r-project.org")
 if (!require(dplyr))
   install.packages("dplyr", repos = "http://cran.us.r-project.org")
+if (!require(GGally))
+  install.packages("GGally", repos = "http://cran.us.r-project.org")
 
 library(haven)
 library(dplyr)
+library(GGally)
 
 # Load XPT files
 demo <- read_xpt('./datasets/P_DEMO.XPT')
@@ -81,3 +84,11 @@ print_data_summary(data, 'All People')
 print_data_summary(data_young, 'Young People')
 print_data_summary(data_mid, 'Middle Age People')
 print_data_summary(data_old, 'Elderly People')
+
+fig <- ggpairs(data[,2:10], axisLabels = "none", ggplot2::aes(colour=data$LBXTC), 
+        upper = list(continuous = wrap("points", size=0.001), combo = "dot"),
+        lower = list(continuous = wrap("cor", size = 2), combo = "dot"),
+        diag = list("densityDiag")) + theme_bw(base_size = 6.4)
+ggsave('./figures/data_visual.png', plot = fig)
+
+table(data$LBXTC, data$RIAGENDR)
