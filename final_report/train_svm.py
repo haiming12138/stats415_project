@@ -37,7 +37,7 @@ def svm(X, y, params, name):
     grid = GridSearchCV(
         estimator=pipe, 
         param_grid=params,
-        scoring='f1',
+        scoring='roc_auc',
         cv=5,
         n_jobs=-1,
         verbose=3
