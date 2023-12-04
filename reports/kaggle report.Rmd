@@ -1,9 +1,0 @@
----
-title: "Kaggle Report"
-author: "Haiming Li, Shuxian Chen, Witty Wen"
-note: "Name of Account: hml12138"
-date: "2023-11-26"
-output:
-  pdf_document: default
-  html_document: default
----
